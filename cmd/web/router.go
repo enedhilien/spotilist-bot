@@ -26,6 +26,9 @@ func SetupRouter(authenticator spotify.Authenticator, keeper auth.TokenKeeper) *
 	r.Handle(http.MethodGet, "/authUrl", func(c *gin.Context) {
 		c.String(200, authenticator.AuthURL(spotifyClient.State))
 	})
+	r.Handle(http.MethodGet, "/version", func(c *gin.Context) {
+		c.String(200, "Hey Space Cowboy")
+	})
 
 	return r
 }
