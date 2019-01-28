@@ -15,6 +15,12 @@
 			"revision": ""
 		},
 		{
+			"checksumSHA1": "aENNVxKxF9h9PfvTIstiAS5I3Lg=",
+			"path": "github.com/davecgh/go-spew/spew",
+			"revision": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d",
+			"revisionTime": "2018-08-30T19:11:22Z"
+		},
+		{
 			"checksumSHA1": "BhMowD2DIKSd9qq8Pzh7Y3mh2/w=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "a7658810eb745c2f22927282dea478278103a897",
@@ -87,10 +93,22 @@
 			"revisionTime": "2019-01-09T06:16:28Z"
 		},
 		{
+			"checksumSHA1": "R3yk3OJzuq4MVfVGX5AhkkYv1ko=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
+			"revisionTime": "2018-12-26T10:54:42Z"
+		},
+		{
 			"checksumSHA1": "qwz+bqF0HzHOlhGqfqTm2kX1tCc=",
 			"path": "github.com/sirupsen/logrus",
 			"revision": "7d8d63893b994a654b3bc8d16ffd7fb6b9f884a4",
 			"revisionTime": "2019-01-22T19:28:20Z"
+		},
+		{
+			"checksumSHA1": "Ahbij8wLM9v/u/wlqolDM6c7nnM=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "363ebb24d041ccea8068222281c2e963e997b9dc",
+			"revisionTime": "2019-01-09T08:30:14Z"
 		},
 		{
 			"checksumSHA1": "h6wzNk/F0jviy8YfsQRzWYf1iCA=",

@@ -22,7 +22,7 @@ type TokenStatePrinter interface {
 }
 
 func NewInMemoryTokenKeeper() TokenManager{
-	return inMemoryTokenKeeper{tokenStore: map[string]*oauth2.Token{}}
+	return &inMemoryTokenKeeper{tokenStore: map[string]*oauth2.Token{}}
 }
 
 type inMemoryTokenKeeper struct {
@@ -37,7 +37,7 @@ func (this inMemoryTokenKeeper) GetToken(telegramUserId int) (*oauth2.Token, err
 	}
 }
 
-func (this inMemoryTokenKeeper) Store(token oauth2.Token, telegramUserId string) {
+func (this *inMemoryTokenKeeper) Store(token oauth2.Token, telegramUserId string) {
 	this.tokenStore[telegramUserId] = &token
 }
 
