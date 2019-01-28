@@ -3,10 +3,82 @@
 	"ignore": "test",
 	"package": [
 		{
+			"path": "appengine",
+			"revision": ""
+		},
+		{
+			"path": "appengine_internal",
+			"revision": ""
+		},
+		{
+			"path": "appengine_internal/base",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "BhMowD2DIKSd9qq8Pzh7Y3mh2/w=",
+			"path": "github.com/gin-contrib/sse",
+			"revision": "a7658810eb745c2f22927282dea478278103a897",
+			"revisionTime": "2019-01-25T02:09:43Z"
+		},
+		{
+			"checksumSHA1": "8b/4nelIgoHV+XmTU2y2/qRDfZk=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "d27685e714cb0b9375e0c9d3ca3df5a6a4945a6c",
+			"revisionTime": "2019-01-25T18:28:39Z"
+		},
+		{
+			"checksumSHA1": "vxHwT2DEuXbnT7u6KIHF/BGNTCU=",
+			"path": "github.com/gin-gonic/gin/binding",
+			"revision": "d27685e714cb0b9375e0c9d3ca3df5a6a4945a6c",
+			"revisionTime": "2019-01-25T18:28:39Z"
+		},
+		{
+			"checksumSHA1": "gEtlV34SWTL6eC3N9E5bT/4+FsY=",
+			"path": "github.com/gin-gonic/gin/internal/json",
+			"revision": "d27685e714cb0b9375e0c9d3ca3df5a6a4945a6c",
+			"revisionTime": "2019-01-25T18:28:39Z"
+		},
+		{
+			"checksumSHA1": "rRPUnuiXCTsK0+i4KBxqLjW/Bzg=",
+			"path": "github.com/gin-gonic/gin/render",
+			"revision": "d27685e714cb0b9375e0c9d3ca3df5a6a4945a6c",
+			"revisionTime": "2019-01-25T18:28:39Z"
+		},
+		{
+			"checksumSHA1": "Wp97rIwFg54dNwuCeR9Vslaehtw=",
+			"path": "github.com/golang/protobuf/proto",
+			"revision": "347cf4a86c1cb8d262994d8ef5924d4576c5b331",
+			"revisionTime": "2019-01-09T07:22:47Z"
+		},
+		{
+			"checksumSHA1": "ZNmhxC5DCqBxxlP3AVxmT8CCxrQ=",
+			"path": "github.com/json-iterator/go",
+			"revision": "f64ce68b6eea7b957a0d0d43e224dfe491b0babe",
+			"revisionTime": "2019-01-14T15:53:30Z"
+		},
+		{
 			"checksumSHA1": "0Hvy6LfJa1y54UxQ2zQtcMd6ZKU=",
 			"path": "github.com/konsorten/go-windows-terminal-sequences",
 			"revision": "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242",
 			"revisionTime": "2018-10-04T22:41:46Z"
+		},
+		{
+			"checksumSHA1": "LkbotKu3JQxXEZZ9P40yhnFOycY=",
+			"path": "github.com/mattn/go-isatty",
+			"revision": "3fb116b820352b7f0c281308a4d6250c22d94e27",
+			"revisionTime": "2018-08-30T10:17:45Z"
+		},
+		{
+			"checksumSHA1": "R7UwDjqiaLRoaEanrANwPOfbgN4=",
+			"path": "github.com/modern-go/concurrent",
+			"revision": "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94",
+			"revisionTime": "2018-03-06T01:26:44Z"
+		},
+		{
+			"checksumSHA1": "SnVnj87vJdiHFJUcwdL03T0ZMhI=",
+			"path": "github.com/modern-go/reflect2",
+			"revision": "94122c33edd36123c84d5368cfb2b69df93a0ec8",
+			"revisionTime": "2018-07-18T01:23:57Z"
 		},
 		{
 			"checksumSHA1": "V5va3aYpyWGkvV1uO2l7la5kgFc=",
@@ -21,10 +93,46 @@
 			"revisionTime": "2019-01-22T19:28:20Z"
 		},
 		{
+			"checksumSHA1": "h6wzNk/F0jviy8YfsQRzWYf1iCA=",
+			"path": "github.com/ugorji/go/codec",
+			"revision": "8fd0f8d918c8f0b52d0af210a812ba882cc31a1e",
+			"revisionTime": "2019-01-26T10:26:52Z"
+		},
+		{
+			"checksumSHA1": "UO70Ge5Ohl+oHtyK8tPLciU9TpM=",
+			"path": "github.com/zmb3/spotify",
+			"revision": "a4bd83f60e06ab58f3516c61680d0532aabf470e",
+			"revisionTime": "2018-09-25T14:39:44Z"
+		},
+		{
 			"checksumSHA1": "BSPDVKviqHQaG2phOFN690zAKB8=",
 			"path": "golang.org/x/crypto/ssh/terminal",
 			"revision": "057139ce5d2bdbe6fe73c53679e24e9cf007f637",
 			"revisionTime": "2019-01-08T20:51:12Z"
+		},
+		{
+			"checksumSHA1": "GtamqiJoL7PGHsN454AoffBFMa8=",
+			"path": "golang.org/x/net/context",
+			"revision": "d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf",
+			"revisionTime": "2018-09-25T13:55:50Z"
+		},
+		{
+			"checksumSHA1": "aFpql3G+Nw8zkzfqLWQJNZC8pu0=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf",
+			"revisionTime": "2018-09-25T13:55:50Z"
+		},
+		{
+			"checksumSHA1": "ucDy8WX6Ui7DehoKPeLIRq+5R1M=",
+			"path": "golang.org/x/oauth2",
+			"revision": "5dab4167f31cbd76b407f1486c86b40748bc5073",
+			"revisionTime": "2019-01-15T08:29:34Z"
+		},
+		{
+			"checksumSHA1": "jQv9bi+Zy4Tbi/hKjK94oh/D21M=",
+			"path": "golang.org/x/oauth2/internal",
+			"revision": "5dab4167f31cbd76b407f1486c86b40748bc5073",
+			"revisionTime": "2019-01-15T08:29:34Z"
 		},
 		{
 			"checksumSHA1": "X3BNLRx0XKxhjhk/TFP7KxkU+V8=",
@@ -39,10 +147,64 @@
 			"revisionTime": "2019-01-23T07:55:40Z"
 		},
 		{
+			"checksumSHA1": "mlpsjmICw9H0cwNDlE6Ct+mbRpA=",
+			"path": "google.golang.org/appengine/internal",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "9xzqDBpjlYLB36y9kPSXF6l5Q+I=",
+			"path": "google.golang.org/appengine/internal/base",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "L6fiwN+edenl0wD0IHc6GT4l8n8=",
+			"path": "google.golang.org/appengine/internal/datastore",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "MMMI+vbwug+O5LAK6Rc5e+uCm/8=",
+			"path": "google.golang.org/appengine/internal/log",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "H9LGsS5QcwUrflHXzTJY7cIkGvg=",
+			"path": "google.golang.org/appengine/internal/remote_api",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "l/L64lKUL+E4e1FP281rU55LmYg=",
+			"path": "google.golang.org/appengine/internal/urlfetch",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "k2vHVgCk1AqIZravw4ZP3NbiRJM=",
+			"path": "google.golang.org/appengine/urlfetch",
+			"revision": "e9657d882bb81064595ca3b56cbe2546bbabf7b1",
+			"revisionTime": "2018-12-17T20:59:03Z"
+		},
+		{
+			"checksumSHA1": "q190bL03wQok3wVwYmMub2XhOiU=",
+			"path": "gopkg.in/go-playground/validator.v8",
+			"revision": "5f1438d3fca68893a817e4a66806cea46a9e4ebf",
+			"revisionTime": "2017-07-30T05:02:35Z"
+		},
+		{
 			"checksumSHA1": "NCt7di9AEfYCfrVdRdkIEPTD3vE=",
 			"path": "gopkg.in/tucnak/telebot.v2",
 			"revision": "49593279d647e284fbc563ccdd8887a25843866b",
 			"revisionTime": "2019-01-27T21:28:15Z"
+		},
+		{
+			"checksumSHA1": "oNqPrS2edE8peI3ah2INe379k8E=",
+			"path": "gopkg.in/yaml.v2",
+			"revision": "51d6538a90f86fe93ac480b35f37b2be17fef232",
+			"revisionTime": "2018-11-15T11:05:04Z"
 		}
 	],
 	"rootPath": "spotilist"
