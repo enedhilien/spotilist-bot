@@ -64,9 +64,6 @@ func NewPlaylistBot(token string,
 	})
 
 	bot.Handle("/chatId", func(m *tb.Message){
-		if !m.Private() { // TODO admin rights authentication
-			return
-		}
 		bot.Send(m.Sender, fmt.Sprintf("Chatid: %v, Userid: %v", m.Chat.ID, m.Sender.ID))
 	})
 
