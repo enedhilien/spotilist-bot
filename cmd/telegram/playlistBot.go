@@ -51,15 +51,15 @@ func NewPlaylistBot(token string,
 		}
 		spotifyClient, err := createSpotifyClient(m, tokenManager, authFactory)
 		if err != nil {
+			log.Error(err)
+			bot.Send(m.Sender, fmt.Sprintf("Couldn't create Spotify client. Error: %v", err))
+		} else {
 			playlists, err := spotifyClient.CurrentUsersPlaylists()
 			if err != nil {
 				log.Error(err)
 				bot.Send(m.Sender, fmt.Sprintf("Couldn't retrieve your playlists. Error: %v", err))
 			}
 			bot.Send(m.Sender, printPlaylists(playlists))
-		} else {
-			log.Error(err)
-			bot.Send(m.Sender, fmt.Sprintf("Couldn't create Spotify client. Error: %v", err))
 		}
 	})
 
