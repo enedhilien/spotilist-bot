@@ -68,9 +68,12 @@ func NewPlaylistBot(token string,
 	})
 
 	bot.Handle(tb.OnText, func(m *tb.Message) {
-		log.Info(m.Text)
+		log.Info(m.Chat.ID, m.Text)
+		if m.Text == "Say hi!"{
+			bot.Send(m.Chat, "Hello! ^^")
+			return
+		}
 		if match, trackId := ParseTrack(m.Text); match {
-
 			for _, playlist := range playlistRepository.GetPlaylistsForChat(m.Chat.ID) {
 				log.Info(fmt.Sprintf("User %v(%v) wants to add track %v from chat %v(%v) to playlists %v", m.Sender.Username, m.Sender.ID, trackId, m.Chat.Username, m.Chat.ID, playlist.ID()))
 				playlist.AddTrackOnPosition(trackId, 0)
