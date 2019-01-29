@@ -42,10 +42,7 @@ func NewPlaylistBot(token string,
 		bot.Send(m.Sender, tokenManager.PrintState())
 	})
 
-	bot.Handle("/playlists", func(m *tb.Message) {
-		if !m.Private() { // TODO admin rights authentication
-			return
-		}
+	bot.Handle("/spotify_status", func(m *tb.Message) {
 		spotifyClient, err := createSpotifyClient(m, tokenManager, authFactory)
 		if err != nil {
 			log.Error(err)
@@ -60,25 +57,82 @@ func NewPlaylistBot(token string,
 		}
 	})
 
-	bot.Handle("/chatid", func(m *tb.Message){
+	bot.Handle("/chat_id", func(m *tb.Message) {
 		bot.Send(m.Sender, fmt.Sprintf("Chatid: %v, Userid: %v", m.Chat.ID, m.Sender.ID))
+	})
+
+	bot.Handle("/subscribe", func(m *tb.Message) {
+		payload := m.Payload
+		log.Info(payload)
+		if isSpotifyConnectionValid(m, tokenManager, authFactory) {
+			client, _ := createSpotifyClient(m, tokenManager, authFactory)
+			playlist, playlistErr := client.GetPlaylist(spotify.ID(payload))
+			user, _ := client.CurrentUser() // TODO
+			if playlistErr != nil {
+				bot.Send(m.Chat, fmt.Sprintf("Can't subscribe to playlist %v, error: %v", payload, playlistErr))
+			} else {
+				log.Info("Playlist owner", playlist.Owner.ID)
+				log.Info("Spotify token owner", user.ID)
+				if playlist.Owner.ID != user.ID{
+					bot.Send(m.Chat, "Sorry, this isn't your playlist. Create your own one so I can mess it with (;")
+				}else{
+					playlistRepository.AddPlaylistForUserAndChat(m.Chat.ID, m.Sender.ID, payload)
+					bot.Send(m.Chat, "Subscription is active! I will be adding tracks to this playlist as they appear here.")
+				}
+			}
+		} else {
+			bot.Send(m.Sender, fmt.Sprintf("It seems that you tried to subscribe playlist %v from chat %v - but I can't access Spotify."+
+				" Please authenticate using following link and try again. \n%v", m.Payload, m.Chat.Title, authUrlPrinter(stringifyUserId(m))))
+		}
+	})
+
+	bot.Handle(tb.OnAddedToGroup, func(m *tb.Message) {
+		if isSpotifyConnectionValid(m, tokenManager, authFactory) {
+			bot.Send(m.Sender, fmt.Sprintf("Hey! You just added me to group %v. It seems that I'm already authenticated with your "+
+				"Spotify account. Please use /subscribe playlistId command on a chat that you want me to check for new songs."))
+		} else {
+			bot.Send(m.Sender, fmt.Sprintf("Hey! You just added me to group %v. It seems that you are not authenticated me with Spotify. "+
+				"Please follow this link and complete the process before issuing me any commands (;\n%v",
+				m.Chat.Username, authUrlPrinter(stringifyUserId(m))))
+		}
+
 	})
 
 	bot.Handle(tb.OnText, func(m *tb.Message) {
 		log.Info(m.Chat.ID, m.Text)
-		if m.Text == "Say hi!"{
+		if m.Text == "Say hi!" {
 			bot.Send(m.Chat, "Hello! ^^")
 			return
 		}
 		if match, trackId := ParseTrack(m.Text); match {
 			for _, playlist := range playlistRepository.GetPlaylistsForChat(m.Chat.ID) {
 				log.Info(fmt.Sprintf("User %v(%v) wants to add track %v from chat %v(%v) to playlists %v", m.Sender.Username, m.Sender.ID, trackId, m.Chat.Username, m.Chat.ID, playlist.ID()))
-				playlist.AddTrackOnPosition(trackId, 0)
+				err := playlist.AddTrackOnPosition(trackId, 0)
+				if err != nil{
+					log.Error(err)
+				}
 			}
 		}
 	})
 
 	return bot
+}
+
+func isSpotifyConnectionValid(m *tb.Message,
+	tokenManager auth.TokenManager,
+	authFactory func() spotify.Authenticator) bool {
+	spotifyClient, err := createSpotifyClient(m, tokenManager, authFactory)
+	if err == nil {
+		_, err = spotifyClient.CurrentUsersPlaylists()
+		if err != nil {
+			return false
+		} else {
+			return true
+		}
+	} else {
+		return false
+	}
+
 }
 
 func createSpotifyClient(m *tb.Message,
