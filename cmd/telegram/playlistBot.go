@@ -30,11 +30,8 @@ func NewPlaylistBot(token string,
 		panic(err)
 	}
 
-	bot.Handle("/authUrl", func(m *tb.Message) {
-		if !m.Private() {
-			return
-		}
-		bot.Send(m.Sender, authUrlPrinter(stringifyUserId(m)))
+	bot.Handle("/auth", func(m *tb.Message) {
+		bot.Send(m.Sender, fmt.Sprintf("Use this url to authenticate with Spotify\n %v", authUrlPrinter(stringifyUserId(m))));
 	})
 
 	bot.Handle("/tokenStatus", func(m *tb.Message) {
@@ -45,7 +42,7 @@ func NewPlaylistBot(token string,
 		bot.Send(m.Sender, tokenManager.PrintState())
 	})
 
-	bot.Handle("/listPlaylists", func(m *tb.Message) {
+	bot.Handle("/playlists", func(m *tb.Message) {
 		if !m.Private() { // TODO admin rights authentication
 			return
 		}
@@ -63,7 +60,7 @@ func NewPlaylistBot(token string,
 		}
 	})
 
-	bot.Handle("/chatId", func(m *tb.Message){
+	bot.Handle("/chatid", func(m *tb.Message){
 		bot.Send(m.Sender, fmt.Sprintf("Chatid: %v, Userid: %v", m.Chat.ID, m.Sender.ID))
 	})
 
