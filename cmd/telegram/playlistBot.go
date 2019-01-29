@@ -67,9 +67,9 @@ func NewPlaylistBot(token string,
 		if isSpotifyConnectionValid(m, tokenManager, authFactory) {
 			client, _ := createSpotifyClient(m, tokenManager, authFactory)
 			playlist, playlistErr := client.GetPlaylist(spotify.ID(payload))
-			user, err := client.CurrentUser()
+			user, _ := client.CurrentUser() // TODO
 			if playlistErr != nil {
-				bot.Send(m.Sender, fmt.Sprintf("Can't subscribe to playlist %v, error: ", payload, err))
+				bot.Send(m.Chat, fmt.Sprintf("Can't subscribe to playlist %v, error: %v", payload, playlistErr))
 			} else {
 				log.Info("Playlist owner", playlist.Owner.ID)
 				log.Info("Spotify token owner", user.ID)
@@ -77,11 +77,12 @@ func NewPlaylistBot(token string,
 					bot.Send(m.Chat, "Sorry, this isn't your playlist. Create your own one so I can mess it with (;")
 				}else{
 					playlistRepository.AddPlaylistForUserAndChat(m.Chat.ID, m.Sender.ID, payload)
+					bot.Send(m.Chat, "Subscription is active! I will be adding tracks to this playlist as they appear here.")
 				}
 			}
 		} else {
 			bot.Send(m.Sender, fmt.Sprintf("It seems that you tried to subscribe playlist %v from chat %v - but I can't access Spotify."+
-				" Please authenticate using following link and try again. \n%v", "?", m.Chat.ID, authUrlPrinter(stringifyUserId(m))))
+				" Please authenticate using following link and try again. \n%v", m.Payload, m.Chat.Title, authUrlPrinter(stringifyUserId(m))))
 		}
 	})
 
