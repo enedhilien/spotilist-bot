@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func SetupRouter(authenticator spotify.Authenticator, keeper auth.TokenKeeper, repository playlists.PlaylistSinkRepository) *gin.Engine {
+func SetupRouter(authenticator spotify.Authenticator, keeper auth.TokenKeeper, repository playlists.PlaylistSinkRepository, secret string) *gin.Engine {
 	r := gin.Default()
 
 	r.Handle(http.MethodGet, "/auth", func(c *gin.Context) {
@@ -32,6 +32,11 @@ func SetupRouter(authenticator spotify.Authenticator, keeper auth.TokenKeeper, r
 	})
 
 	r.Handle(http.MethodPost, "/playlist", func(c *gin.Context) {
+		secretParam := c.Query("secret")
+		if secretParam != secret{
+			c.String(http.StatusUnauthorized, "Unauthorized")
+		}
+
 		userIdQP := c.Query("userId")
 		chatIdQP := c.Query("chatId")
 		playlistIdQP := c.Query("playlistId")

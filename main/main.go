@@ -18,6 +18,7 @@ var spotifySecret = flag.String("spotifySecret", "", "spotifySecret API secret")
 var redirectUri = flag.String("redirectUri", "", "spotifySecret redirect URI")
 
 var contextPath = flag.String("contextPath", "", "server context path")
+var routerSecret = flag.String("routerSecret", "", "")
 
 func main() {
 	parseFlags()
@@ -38,7 +39,7 @@ func main() {
 		playlistRepository,
 	)
 
-	router := web.SetupRouter(spotifyAuthenticator, tokenManager, playlistRepository)
+	router := web.SetupRouter(spotifyAuthenticator, tokenManager, playlistRepository, *routerSecret)
 
 	// Run things
 	go func() {
