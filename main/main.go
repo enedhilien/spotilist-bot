@@ -29,8 +29,6 @@ func main() {
 		return spotifyAuthenticator
 	}
 	playlistRepository := playlists.NewInMemoryPlaylistSinkRepository(tokenManager, authFactory)
-	playlistRepository.AddPlaylistForUserAndChat(98025430, 98025430, "7coO8tS7abtBgV51jPju3n")
-	playlistRepository.AddPlaylistForUserAndChat(-305749618, 98025430, "7coO8tS7abtBgV51jPju3n")
 
 	bot := telegram.NewPlaylistBot(*botToken, func(s string) string {
 		return spotifyAuthenticator.AuthURL(s)
@@ -40,8 +38,7 @@ func main() {
 		playlistRepository,
 	)
 
-
-	router := web.SetupRouter(spotifyAuthenticator, tokenManager)
+	router := web.SetupRouter(spotifyAuthenticator, tokenManager, playlistRepository)
 
 	// Run things
 	go func() {
