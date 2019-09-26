@@ -2,6 +2,7 @@ package playlists
 
 import (
 	"fmt"
+	scribble "github.com/nanobox-io/golang-scribble"
 	"github.com/sirupsen/logrus"
 	"github.com/zmb3/spotify"
 	"spotilist/cmd/spotifyClient/auth"
@@ -33,10 +34,17 @@ type PlaylistSinkRepository interface {
 }
 
 func NewInMemoryPlaylistSinkRepository(manager auth.TokenManager, authFactory func() spotify.Authenticator) PlaylistSinkRepository {
-	return &inMemoryPlaylistSinkRepository{tokenManager: manager, chatIdToUserId: map[int64][]UserPlaylistEntry{}, authFactory: authFactory}
+	db, err := scribble.New("./db", nil)
+	if err != nil {
+		logrus.Error(err)
+	}
+	chatIdToUserId := map[int64][]UserPlaylistEntry{}
+	db.Read("playlists", "map", &chatIdToUserId)
+	return &inMemoryPlaylistSinkRepository{tokenManager: manager, chatIdToUserId: chatIdToUserId, authFactory: authFactory, db:db}
 }
 
 type inMemoryPlaylistSinkRepository struct {
+	db 	*scribble.Driver
 	tokenManager   auth.TokenManager
 	chatIdToUserId map[int64][]UserPlaylistEntry
 	authFactory    func() spotify.Authenticator
@@ -74,6 +82,7 @@ func (this *inMemoryPlaylistSinkRepository) AddPlaylistForUserAndChat(chatId int
 		this.chatIdToUserId[chatId] = []UserPlaylistEntry{}
 	}
 	this.chatIdToUserId[chatId] = append(this.chatIdToUserId[chatId], UserPlaylistEntry{PlaylistId: playlistId, UserId: userId})
+	this.db.Write("playlists", "map", this.chatIdToUserId)
 }
 
 func (this *inMemoryPlaylistSinkRepository) RemovePlaylistForChat(chatId int64, userId int) {
@@ -85,5 +94,6 @@ func (this *inMemoryPlaylistSinkRepository) RemovePlaylistForChat(chatId int64, 
 			}
 		}
 		this.chatIdToUserId[chatId] = chatEntries
+		this.db.Write("playlists", "map", this.chatIdToUserId)
 	}
 }

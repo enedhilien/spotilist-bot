@@ -25,7 +25,8 @@ func main() {
 
 	//Config things
 	spotifyAuthenticator := spotifyClient.NewSpotifyAuthenticator(*spotifyClientId, *spotifySecret, *redirectUri)
-	tokenManager := auth.NewInMemoryTokenKeeper()
+	//tokenManager := auth.NewInMemoryTokenKeeper()
+	tokenManager := auth.NewScribbleTokenRepository()
 	authFactory := func() spotify.Authenticator {
 		return spotifyAuthenticator
 	}
