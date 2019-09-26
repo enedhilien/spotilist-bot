@@ -8,11 +8,11 @@ import (
 )
 
 type TokenManager interface {
-	TokenKeeper
+	OauthTokenRepository
 	TokenStatePrinter
 }
 
-type TokenKeeper interface {
+type OauthTokenRepository interface {
 	GetToken(telegramUserId int) (*oauth2.Token, error)
 	Store(token oauth2.Token, telegramUserId string)
 }

@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func SetupRouter(authenticator spotify.Authenticator, keeper auth.TokenKeeper, repository playlists.PlaylistSinkRepository, secret string) *gin.Engine {
+func SetupRouter(authenticator spotify.Authenticator, keeper auth.OauthTokenRepository, repository playlists.PlaylistSinkRepository, secret string) *gin.Engine {
 	r := gin.Default()
 
 	r.Handle(http.MethodGet, "/auth", func(c *gin.Context) {
