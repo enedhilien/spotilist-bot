@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/sirupsen/logrus"
 	"github.com/zmb3/spotify"
+	"os"
 	"spotilist/cmd/spotifyClient"
 	"spotilist/cmd/spotifyClient/auth"
 	"spotilist/cmd/spotifyClient/playlists"
@@ -21,6 +22,14 @@ var contextPath = flag.String("contextPath", "", "server context path")
 var routerSecret = flag.String("routerSecret", "", "")
 
 func main() {
+	//setup logging
+	logrus.SetFormatter(&logrus.JSONFormatter{})
+	file, err := os.OpenFile("spotilist.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err == nil {
+	 logrus.SetOutput(file)
+	} else {
+	 logrus.Info("Failed to log to file, using default stderr")
+	}
 	parseFlags()
 
 	//Config things

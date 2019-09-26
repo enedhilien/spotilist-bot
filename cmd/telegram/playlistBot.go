@@ -106,7 +106,7 @@ func NewPlaylistBot(token string,
 		}
 		if match, trackId := ParseTrack(m.Text); match {
 			for _, playlist := range playlistRepository.GetPlaylistsForChat(m.Chat.ID) {
-				log.Info(fmt.Sprintf("User %v(%v) wants to add track %v from chat %v(%v) to playlists %v", m.Sender.Username, m.Sender.ID, trackId, m.Chat.Username, m.Chat.ID, playlist.ID()))
+				log.WithFields(log.Fields{"operation": "track_add"}).Info(fmt.Sprintf("%v;%v;%v;%v;%v;%v", m.Sender.Username, m.Sender.ID, trackId, m.Chat.Username, m.Chat.ID, playlist.ID()))
 				err := playlist.AddTrackOnPosition(trackId, 0)
 				if err != nil{
 					log.Error(err)
